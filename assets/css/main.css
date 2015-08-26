@@ -1942,7 +1942,7 @@
 /*Header Image*/
 .header_image{
 	height:500px;
-	background: url('../../stock_images/Home.png');
+	background: url('images/Home.png');
 	background-size:   cover;
 	background-repeat: no-repeat;
 	background-position: center center;
