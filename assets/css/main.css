@@ -1942,7 +1942,7 @@
 /*Header Image*/
 .header_image{
 	height:500px;
-	background: url('images/Home.png');
+	background: url('../images/Home.png');
 	background-size:   cover;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -1955,7 +1955,7 @@
 	font-family: FontAwesome;
 	position:absolute;
 	right:0;
-    bottom: 270px;
+    bottom: 35%;
 	width: 400px;
 	height: 200px;
 	color: #37c0fb;
@@ -1966,7 +1966,7 @@
 	font-family: FontAwesome;
 	position:absolute;
 	right:0;
-	bottom:170px;
+	bottom: 25%;
 	width: 400px;
 	height: 200px;
 	color: orangered;
