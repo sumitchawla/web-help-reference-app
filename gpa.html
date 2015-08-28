@@ -94,14 +94,16 @@
         function initialize() {
             var param = getParameterByName('gpa');
             var token = localStorage.getItem('token');
+            //var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6Im5leHVzLnN1cHBvcnQuY29tIiwicHJtIjpbImxvZzoqIiwic2Vzc2lvbjpjb25uZWN0Il0sImp0aSI6IjQzY2JmNWEyLWQ1ZjAtNDcwNC1iOTE3LWQzYTM2YmE1YjhkMCIsImFwcCI6IlBpIiwidmVyIjoiUGkiLCJwbHQiOiJSYWJQaSIsImlhdCI6MTQ0MDQ1ODQ4NywiYXVkIjpbImFwcCIsImFwaSJdLCJpc3MiOiJTdXBwb3J0LmNvbSJ9.4djguCZWXkXibo1aWrHAScjKBWiv2br1S_OQSrDxC1g';
+
             var html = '<p style="color:red"> Please input valid JWT TOKEN IN HOME PAGE.</p>';
             if(token) {
                 console.log(token);
                 try {
                     NexusConnectSDK.initialize(token);
                     NexusConnectSDK.showSelfHelpForTags([param], document.getElementById('container_for_gpa'));
-                    NexusConnectSDK.showLiveHelp(document.getElementById('container_for_live_support'));
                 }catch(e){
+                    console.log(e);
                     $("#jwt_token_error").append(html);
                 }
             }else{
@@ -111,6 +113,14 @@
 
         $(document).ready(function() {
             $('#live_support_button').click(function () {
+                var fname = "John";
+                var lname = "Doe";
+                var email = 'john.doe@support.com';
+                var phone = Math.floor(Math.random()*10000000000);
+                var externalId = Math.floor((Math.random() * 10000));
+
+                NexusConnectSDK.setEmail(email).setFirstName(fname).setLastName(lname).setPhone(phone).setExternalId(externalId);
+                NexusConnectSDK.showLiveHelp(document.getElementById('container_for_live_support'),{'phone':'(408)-830-7906', 'skill':'Sales'});
                 $('#live_support').show();
                 $('#live_support_button').css("color","grey");
                 $('#list_of_gpas').addClass("7u 12u(narrower)");
