@@ -125,7 +125,16 @@
                 $('#live_support_button').css("color","grey");
                 $('#list_of_gpas').addClass("7u 12u(narrower)");
             });
+          
         });
+
+       $(window).on('beforeunload', function(e) {
+         if(NexusConnectSDK.isLiveHelpActive()){
+            NexusConnectSDK.exitHelp()
+         }
+        });
+
+
 
 
     </script>
