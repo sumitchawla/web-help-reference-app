@@ -144,10 +144,27 @@
                 console.log(token);
                 try {
                     NexusConnectSDK.initialize(token);
+                      console.log('index initialize');
+                      console.log('nexusSdk live',NexusConnectSDK.isLiveHelpActive());
+                      NexusConnectSDK.exitHelp();
                 }catch(e){
                     console.log(e);
                 }
-            }
+            }else{
+                token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6Im5leHVzLnN1cHBvcnQuY29tIiwicHJtIjpbImxvZzoqIiwic2Vzc2lvbjpjb25uZWN0Il0sImp0aSI6IjQzY2JmNWEyLWQ1ZjAtNDcwNC1iOTE3LWQzYTM2YmE1YjhkMCIsImFwcCI6IlBpIiwidmVyIjoiUGkiLCJwbHQiOiJSYWJQaSIsImlhdCI6MTQ0MTQwNzI4MiwiYXVkIjpbImFwcCIsImFwaSJdLCJpc3MiOiJTdXBwb3J0LmNvbSJ9.yzl2CwVfBOsHGqT7bz8oI33bxJNod1HXhlbIiuhXd_k';
+                 try {
+                    NexusConnectSDK.initialize(token);
+                    localStorage.setItem('token',token);
+                      console.log('index initialize');
+                      console.log('nexusSdk live',NexusConnectSDK.isLiveHelpActive());
+                      NexusConnectSDK.exitHelp();
+                }catch(e){
+                    console.log(e);
+                }
+
+            };
+
+          
         };
 
 
