@@ -14,7 +14,7 @@
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 </head>
-<body onload="initialize()">
+<body>
 <div id="page-wrapper">
 
     <!-- Header -->
@@ -38,12 +38,16 @@
 
                 <h1><a id="logo">Welcome to Acme Support</a></h1>
                 <p>Questions about Acme products? We've got the resources to help you out.</p>
-                <p>Looking for help with the Website Builder? <a href="gpa.html?gpa=WebsiteBuilder">Let's get started.</a> </p>
-                <section style="position: relative; top: 40%;left: 35%;" >
+                <p>Here is our top content for today</p>
+                <section style=" top: 40%;left: 35%;" >
+                    <div id="gpa_top_content">
+                    </div>
+                </section>
+                <section style="position: relative; top: 40%;left: 30%;" >
                     <form id="gpa_search">
                         <div class="row 50%">
                             <div >
-                                <input type="text" name="name" id="name" placeholder="Or type to search.." />
+                                <input style="width: 350px;" type="text" name="name" id="name" placeholder="Or type to search.." />
                             </div>
                             <div >
                                 <ul class="actions">
@@ -146,12 +150,20 @@
 
 <!-- Scripts -->
 <script src="assets/js/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 <script src="assets/js/jquery.dropotron.min.js"></script>
 <script src="assets/js/skel.min.js"></script>
 <script src="assets/js/util.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="assets/js/main.js"></script>
-    <script src="https://static.nexus.support.com/client/v1/nexus-connect-sdk.js"></script>
+    <script src="https://static.sumit-lms.dev.support.com/client/v1/nexus-connect-sdk.js"></script>
+
+<style type="text/css">
+    .ui-menu-item {
+        width: 350px;
+        background: lavender;
+    }
+</style>
 
 <script>
    function initialize() {
@@ -160,6 +172,7 @@
                 console.log(token);
                 try {
                     NexusConnectSDK.initialize(token);
+                    NexusConnectSDK.showTopContent(document.getElementById('gpa_top_content'));
                 }catch(e){
                     console.log(e);
                 }
@@ -176,9 +189,63 @@
 
         });
 
+        $('#name')
+                .bind( "keydown", function( event ) {
+                    if ( event.keyCode === $.ui.keyCode.TAB &&
+                            $( this ).autocomplete( "instance" ).menu.active ) {
+                        event.preventDefault();
+                    }
+                })
+                .autocomplete({
+                    source: function( request, response ) {
+//                        $.getJSON( "search.php", {
+//                            term: extractLast( request.term )
+//                        }, response );
+
+
+                        NexusConnectSDK.getSuggestions($('#name').val())
+                                .then(function(data){
+                                    var results = [];
+                                    if (data) {
+                                         console.log(data);
+                                         $.each(data.results,function(i, r) {
+                                            if (i < 8)
+                                                results.push(r.text);
+                                        })
+                                    }
+                                    console.log(results);
+                                    response(results);
+                                })
+                    },
+                    /*search: function() {
+                     // custom minLength
+                     var term = extractLast( this.value );
+                     if ( term.length < 2 ) {
+                     return false;
+                     }
+                     },*/
+                    focus: function() {
+                        // prevent value inserted on focus
+                        return false;
+                    },
+                    select: function( event, ui ) {
+                        var terms = split( this.value );
+                        // remove the current input
+                        terms.pop();
+                        // add the selected item
+                        terms.push( ui.item.value );
+                        // add placeholder to get the comma-and-space at the end
+                        terms.push( "" );
+                        this.value = terms.join( "" );
+                        return false;
+                    }
+                });
+
         $('#email_gpa').click(function() {
             $.post("gpa.html", { gpa: "email_gpa"} );
         });
+
+        initialize();
     });
 </script>
 

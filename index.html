@@ -134,7 +134,7 @@
     <script src="assets/js/util.js"></script>
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>
-    <script src="https://static.nexus.support.com/client/v1/nexus-connect-sdk.js"></script>
+    <script src="https://static.sumit-lms.dev.support.com/client/v1/nexus-connect-sdk.js"></script>
     <script>
        
 
@@ -151,7 +151,7 @@
                     console.log(e);
                 }
             }else{
-                token='eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6Im5leHVzLnN1cHBvcnQuY29tIiwicHJtIjpbImxvZzoqIiwic2Vzc2lvbjpjb25uZWN0Il0sImp0aSI6IjQzY2JmNWEyLWQ1ZjAtNDcwNC1iOTE3LWQzYTM2YmE1YjhkMCIsImFwcCI6IlBpIiwidmVyIjoiUGkiLCJwbHQiOiJSYWJQaSIsImlhdCI6MTQ0MTQwNzI4MiwiYXVkIjpbImFwcCIsImFwaSJdLCJpc3MiOiJTdXBwb3J0LmNvbSJ9.yzl2CwVfBOsHGqT7bz8oI33bxJNod1HXhlbIiuhXd_k';
+                token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6InN1bWl0LWxtcy5kZXYuc3VwcG9ydC5jb20iLCJwcm0iOlsibG9nOioiLCJzZXNzaW9uOmNvbm5lY3QiXSwianRpIjoiNzAwOGJiODMtOTY0Yy00NDU5LTgyYzEtZDkzNWY0Nzk0ZWI3IiwiYXBwIjoiU1MiLCJ2ZXIiOiJTRFMiLCJpYXQiOjE0NTA3MzQ0MDMsImF1ZCI6WyJhcHAiXSwiaXNzIjoiU3VwcG9ydC5jb20ifQ.PMf5-8EOhF0xNeiHAnLNfpnGM26CVL6WQ_fUF9n16o0';
                  try {
                     NexusConnectSDK.initialize(token);
                     localStorage.setItem('token',token);
