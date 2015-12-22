@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+
 </head>
 <body>
 <div id="page-wrapper">
@@ -156,7 +157,7 @@
 <script src="assets/js/util.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="assets/js/main.js"></script>
-    <script src="https://static.sumit-lms.dev.support.com/client/v1/nexus-connect-sdk.js"></script>
+<script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js"></script>
 
 <style type="text/css">
     .ui-menu-item {
@@ -167,17 +168,21 @@
 
 <script>
    function initialize() {
-            var token = localStorage.getItem('token');
-            if(token) {
-                console.log(token);
-                try {
-                    NexusConnectSDK.initialize(token);
-                    NexusConnectSDK.showTopContent(document.getElementById('gpa_top_content'));
-                }catch(e){
-                    console.log(e);
-                }
-            };
-              NexusConnectSDK.exitHelp();
+       downloadSDK().then(function() {
+           console.log("SDK Downloaded");
+           var token = localStorage.getItem('token');
+           if (token) {
+               console.log(token);
+               try {
+                   NexusConnectSDK.initialize(token);
+                   NexusConnectSDK.showTopContent(document.getElementById('gpa_top_content'));
+               } catch (e) {
+                   console.log(e);
+               }
+           }
+           ;
+           NexusConnectSDK.exitHelp();
+       });
     };
 
     $(document).ready(function() {

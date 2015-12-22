@@ -84,3 +84,39 @@
 	});
 
 })(jQuery);
+
+
+function downloadSDK(){
+	var defaultToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6InN1bWl0LWxtcy5kZXYuc3VwcG9ydC5jb20iLCJwcm0iOlsibG9nOioiLCJzZXNzaW9uOmNvbm5lY3QiXSwianRpIjoiNzAwOGJiODMtOTY0Yy00NDU5LTgyYzEtZDkzNWY0Nzk0ZWI3IiwiYXBwIjoiU1MiLCJ2ZXIiOiJTRFMiLCJpYXQiOjE0NTA3MzQ0MDMsImF1ZCI6WyJhcHAiXSwiaXNzIjoiU3VwcG9ydC5jb20ifQ.PMf5-8EOhF0xNeiHAnLNfpnGM26CVL6WQ_fUF9n16o0';
+	//demo server
+	defaultToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6ImRlbW8taW50ZXJuYWwubmV4dXMuc3VwcG9ydC5jb20iLCJwcm0iOlsibG9nOioiLCJzZXNzaW9uOmNvbm5lY3QiXSwianRpIjoiZDc3NGIwYWYtYzE0Ni00OTI4LThlYjEtOGQwYTNjNWMzMzgwIiwiYXBwIjoiU3VtaXRDIiwidmVyIjoiMTExIiwiaWF0IjoxNDUwODIwMzQ2LCJhdWQiOlsiYXBwIl0sImlzcyI6IlN1cHBvcnQuY29tIn0.tvXPe8CzNalQjl5rQDuyHPIc0G4PtGwodL-B-bwDPko';
+	var token = localStorage.getItem('token');
+	var jwt = token;
+	if (jwt == null) {
+		jwt = defaultToken;
+	}
+	localStorage.setItem('token',jwt);
+
+	var parsedJWT;
+	var tenant="";
+	var jws = new KJUR.jws.JWS();
+	try{
+		var result  = jws.parseJWS(jwt);
+		parsedJWT = JSON.parse(jws.parsedJWS.payloadS);
+	}catch(ex){
+		console.error(ex);
+	}finally{
+		var myURL = parsedJWT.d;
+		tenant = parsedJWT.t;
+	}
+	url = 'https://static.' + myURL +  '/client/v1/nexus-connect-sdk.js';
+	return $.getScript(url, function(data, textStatus, jqxhr) {
+		if(jqxhr.status != 200){
+			alert("Failed to Download SDK from " + url);
+			return;
+		}
+		else {
+			console.log("SDK Loaded from " + url);
+		}
+	 });
+}

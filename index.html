@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="assets/css/main.css" />
         <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
         <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+
     </head>
     <body onload="initialize()">
     <div id="page-wrapper">
@@ -134,37 +135,39 @@
     <script src="assets/js/util.js"></script>
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>
-    <script src="https://static.sumit-lms.dev.support.com/client/v1/nexus-connect-sdk.js"></script>
+    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js"></script>
+
     <script>
        
 
         function initialize() {
-            var token = localStorage.getItem('token');
-            if(token) {
-                console.log(token);
-                try {
-                    NexusConnectSDK.initialize(token);
-                      console.log('index initialize');
-                      console.log('nexusSdk live',NexusConnectSDK.isLiveHelpActive());
-                      NexusConnectSDK.exitHelp();
-                }catch(e){
-                    console.log(e);
-                }
-            }else{
-                token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6InN1bWl0LWxtcy5kZXYuc3VwcG9ydC5jb20iLCJwcm0iOlsibG9nOioiLCJzZXNzaW9uOmNvbm5lY3QiXSwianRpIjoiNzAwOGJiODMtOTY0Yy00NDU5LTgyYzEtZDkzNWY0Nzk0ZWI3IiwiYXBwIjoiU1MiLCJ2ZXIiOiJTRFMiLCJpYXQiOjE0NTA3MzQ0MDMsImF1ZCI6WyJhcHAiXSwiaXNzIjoiU3VwcG9ydC5jb20ifQ.PMf5-8EOhF0xNeiHAnLNfpnGM26CVL6WQ_fUF9n16o0';
-                 try {
-                    NexusConnectSDK.initialize(token);
-                    localStorage.setItem('token',token);
-                      console.log('index initialize');
-                      console.log('nexusSdk live',NexusConnectSDK.isLiveHelpActive());
-                      NexusConnectSDK.exitHelp();
-                }catch(e){
-                    console.log(e);
-                }
+            downloadSDK().then(function(){
+                console.log("SDK Downloaded");
+                var token = localStorage.getItem('token');
+                if(token) {
+                    console.log(token);
+                    try {
+                        NexusConnectSDK.initialize(token);
+                        console.log('index initialize');
+                        console.log('nexusSdk live',NexusConnectSDK.isLiveHelpActive());
+                        NexusConnectSDK.exitHelp();
+                    }catch(e){
+                        console.log(e);
+                    }
+                }else{
+                    token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6InN1bWl0LWxtcy5kZXYuc3VwcG9ydC5jb20iLCJwcm0iOlsibG9nOioiLCJzZXNzaW9uOmNvbm5lY3QiXSwianRpIjoiNzAwOGJiODMtOTY0Yy00NDU5LTgyYzEtZDkzNWY0Nzk0ZWI3IiwiYXBwIjoiU1MiLCJ2ZXIiOiJTRFMiLCJpYXQiOjE0NTA3MzQ0MDMsImF1ZCI6WyJhcHAiXSwiaXNzIjoiU3VwcG9ydC5jb20ifQ.PMf5-8EOhF0xNeiHAnLNfpnGM26CVL6WQ_fUF9n16o0';
+                    try {
+                        NexusConnectSDK.initialize(token);
+                        localStorage.setItem('token',token);
+                        console.log('index initialize');
+                        console.log('nexusSdk live',NexusConnectSDK.isLiveHelpActive());
+                        NexusConnectSDK.exitHelp();
+                    }catch(e){
+                        console.log(e);
+                    }
 
-            };
-
-          
+                };
+            })
         };
 
 

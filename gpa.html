@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/main.css" />
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+
 </head>
 <body onload="initialize()">
 <div id="page-wrapper">
@@ -82,7 +83,7 @@
     <script src="assets/js/util.js"></script>
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>
-    <script src="https://static.sumit-lms.dev.support.com/client/v1/nexus-connect-sdk.js"></script>
+    <script language="JavaScript" type="text/javascript" src="http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js"></script>
     <script>
         function getParameterByName(name) {
             name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
@@ -92,23 +93,26 @@
         };
 
         function initialize() {
-            var param = getParameterByName('gpa');
-            var token = localStorage.getItem('token');
-            // var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6IndlbmxhaXouZGV2LnN1cHBvcnQuY29tIiwicHJtIjpbImxvZzoqIiwic2Vzc2lvbjpjb25uZWN0Il0sImp0aSI6IjQzMzhiZTU1LTEwNTAtNDYwNS04Yzc5LTQ3NDA2Mzc2MjI2MiIsImFwcCI6Im15YXBwbGljYXRpb24iLCJ2ZXIiOiIxLjAiLCJwbHQiOiJvdGhlciIsImlhdCI6MTQ0MTM5MDc1OCwiYXVkIjpbImFwcCIsImFwaSJdLCJpc3MiOiJTdXBwb3J0LmNvbSJ9.1zGlvghAJsaNwRXUx6u0iTX6gNlq5elJEs26qGqKUXM';
+            downloadSDK().then(function() {
 
-            var html = '<p style="color:red"> Please input valid JWT TOKEN IN HOME PAGE.</p>';
-            if(token) {
-                console.log(token);
-                try {
-                    NexusConnectSDK.initialize(token);
-                    NexusConnectSDK.showSelfHelpForTags([param], document.getElementById('container_for_gpa'));
-                }catch(e){
-                    console.log(e);
+                var param = getParameterByName('gpa');
+                var token = localStorage.getItem('token');
+                // var token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0IjoibXljb21wYW55IiwiZCI6IndlbmxhaXouZGV2LnN1cHBvcnQuY29tIiwicHJtIjpbImxvZzoqIiwic2Vzc2lvbjpjb25uZWN0Il0sImp0aSI6IjQzMzhiZTU1LTEwNTAtNDYwNS04Yzc5LTQ3NDA2Mzc2MjI2MiIsImFwcCI6Im15YXBwbGljYXRpb24iLCJ2ZXIiOiIxLjAiLCJwbHQiOiJvdGhlciIsImlhdCI6MTQ0MTM5MDc1OCwiYXVkIjpbImFwcCIsImFwaSJdLCJpc3MiOiJTdXBwb3J0LmNvbSJ9.1zGlvghAJsaNwRXUx6u0iTX6gNlq5elJEs26qGqKUXM';
+
+                var html = '<p style="color:red"> Please input valid JWT TOKEN IN HOME PAGE.</p>';
+                if (token) {
+                    console.log(token);
+                    try {
+                        NexusConnectSDK.initialize(token);
+                        NexusConnectSDK.showSelfHelpForTags([param], document.getElementById('container_for_gpa'));
+                    } catch (e) {
+                        console.log(e);
+                        $("#jwt_token_error").append(html);
+                    }
+                } else {
                     $("#jwt_token_error").append(html);
                 }
-            }else{
-                $("#jwt_token_error").append(html);
-            }
+            });
         };
 
         $(document).ready(function() {
